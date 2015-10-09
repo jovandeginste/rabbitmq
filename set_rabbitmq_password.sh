@@ -26,6 +26,8 @@ cat > /etc/rabbitmq/rabbitmq.config <<EOF
 EOF
 echo "=> Setting erlang cookie"
 echo $ERLANG_COOKIE > /var/lib/rabbitmq/.erlang.cookie
+chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+chmod 400 /var/lib/rabbitmq/.erlang.cookie
 echo "=> Done!"
 touch /config/.rabbitmq_password_set
 
