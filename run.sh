@@ -2,7 +2,7 @@
 
 set -m
 
-if [ ! -f /.rabbitmq_password_set ]; then
+if [ ! -f /config/.rabbitmq_password_set ]; then
 	/set_rabbitmq_password.sh
 fi
 
@@ -18,10 +18,10 @@ if [ -z "$CLUSTER_WITH" ] ; then
     ipset add containerports ${IPV6},tcp:$PORT
     fg
 else
-    if [ -f /.CLUSTERED ] ; then
+    if [ -f /config/.CLUSTERED ] ; then
     /usr/sbin/rabbitmq-server
     else
-        touch /.CLUSTERED
+        touch /config/.CLUSTERED
         /usr/sbin/rabbitmq-server &
         sleep 10
         PORT=`epmd -names | sed '/rabbit/!d;s/.*port //'`
