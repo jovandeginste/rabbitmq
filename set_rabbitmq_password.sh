@@ -16,7 +16,9 @@ echo "=> Securing RabbitMQ with a ${_word} password"
 cat > /etc/rabbitmq/rabbitmq.config <<EOF
 [
    {rabbit, [{default_user, <<"$USER">>},{default_pass, <<"$PASS">>},{tcp_listeners, [{"::", 5672}]}]},
-   {rabbitmq_stomp, [{tcp_listeners, [{"::", $STOMPPORT}]}]},
+   {rabbitmq_stomp, [{tcp_listeners, [{"::", $STOMPPORT}]},
+                     {implicit_connect, true}
+                    ]},
    {rabbitmq_management, 
       [{listener, [{port,$MGMTPORT},
                  {ip, "::"}
