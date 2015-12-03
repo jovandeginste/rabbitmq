@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -m
+: ${RABBITMQ_CHAIN:=rabbitmq-local}
 
 if [ ! -f /config/.rabbitmq_password_set ]; then
 	/set_rabbitmq_password.sh
