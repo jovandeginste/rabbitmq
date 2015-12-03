@@ -15,7 +15,7 @@ if [ -z "$CLUSTER_WITH" ] ; then
     /usr/sbin/rabbitmq-server &
     sleep 5
     PORT=`epmd -names | sed '/rabbit/!d;s/.*port //'`
-    ipset add containerports ${IPV6},tcp:$PORT
+    ipset -! add ${RABBITMQ_CHAIN} ${IPV6}
     fg
 else
     if [ -f /config/.CLUSTERED ] ; then
@@ -25,7 +25,7 @@ else
         /usr/sbin/rabbitmq-server &
         sleep 10
         PORT=`epmd -names | sed '/rabbit/!d;s/.*port //'`
-        ipset add containerports ${IPV6},tcp:$PORT
+        ipset -! add ${RABBITMQ_CHAIN} ${IPV6}
         rabbitmqctl stop_app
         rabbitmqctl join_cluster rabbit@$CLUSTER_WITH
         rabbitmqctl start_app
