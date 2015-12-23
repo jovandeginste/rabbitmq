@@ -1,0 +1,20 @@
+FROM registry.icts.kuleuven.be:5000/icts/icts-centos7:latest
+MAINTAINER Jo Vanvoorden "jo.vanvoorden@kuleuven.be"
+
+# Install RabbitMQ
+RUN yum -y install https://packages.erlang-solutions.com/erlang/esl-erlang/FLAVOUR_1_general/esl-erlang_18.2-1~centos~7_amd64.rpm https://github.com/jasonmcintosh/esl-erlang-compat/releases/download/1.1.1/esl-erlang-compat-18.1-1.noarch.rpm || true
+RUN rpm --rebuilddb && yum -y install pwgen ipset rabbitmq-server-3.5.6 --enablerepo=kul-rhel7-repo && yum clean all
+RUN true && rabbitmq-plugins enable --offline rabbitmq_management rabbitmq_stomp
+
+RUN echo "ERLANGCOOKIE" > /var/lib/rabbitmq/.erlang.cookie
+RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+RUN chmod 400 /var/lib/rabbitmq/.erlang.cookie
+RUN mkdir /config
+
+# Add scripts
+ADD run.sh /run.sh
+ADD set_rabbitmq_password.sh /set_rabbitmq_password.sh
+RUN chmod 755 ./*.sh
+
+EXPOSE 5672 15672
+CMD ["/run.sh"]
