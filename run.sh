@@ -20,7 +20,12 @@ if [ -z "$CLUSTER_WITH" ] ; then
     fg
 else
     if [ -f /config/.CLUSTERED ] ; then
-    /usr/sbin/rabbitmq-server
+				# Node is clustered, restart with right rules
+				/usr/sbin/rabbitmq-server &
+				sleep 5
+				PORT=`epmd -names | sed '/rabbit/!d;s/.*port //'`
+				ipset -! add ${RABBITMQ_CHAIN} ${IPV6}
+				fg
     else
         touch /config/.CLUSTERED
         /usr/sbin/rabbitmq-server &
