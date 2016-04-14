@@ -15,7 +15,7 @@ apt-get clean && \
 (rm -rf /var/lib/apt/lists/* || true) && \
 rm -f /tmp/rabbit.deb
 
-RUN true && rabbitmq-plugins --offline enable rabbitmq_management rabbitmq_stomp
+RUN true && rabbitmq-plugins --offline enable rabbitmq_management rabbitmq_stomp rabbitmq_shovel rabbitmq_shovel_management
 
 RUN echo "ERLANGCOOKIE" > /var/lib/rabbitmq/.erlang.cookie
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
