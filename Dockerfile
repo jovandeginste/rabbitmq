@@ -6,7 +6,7 @@ RUN apt-get update && \
 			apt-get install -y pwgen ipset gdebi-core wget && \
 			apt-get clean && \
 			(rm -rf /var/lib/apt/lists/* || true)
-ENV VERSION=3.5.6
+ENV VERSION=3.6.15
 ENV RELEASE=1
 
 RUN wget -q "https://www.rabbitmq.com/releases/rabbitmq-server/v${VERSION}/rabbitmq-server_${VERSION}-${RELEASE}_all.deb" -O /tmp/rabbit.deb && \
