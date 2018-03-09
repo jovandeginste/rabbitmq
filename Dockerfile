@@ -1,9 +1,9 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Fernando Mayo <fernando@tutum.co>
 
 # Install RabbitMQ
 RUN apt-get update && \
-			apt-get install -y pwgen ipset gdebi-core wget && \
+			apt-get install -y pwgen ipset gdebi-core wget telnet curl && \
 			apt-get clean && \
 			(rm -rf /var/lib/apt/lists/* || true)
 ENV VERSION=3.6.15
