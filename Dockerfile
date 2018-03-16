@@ -6,10 +6,11 @@ RUN apt-get update && \
 			apt-get install -y pwgen ipset gdebi-core wget telnet curl && \
 			apt-get clean && \
 			(rm -rf /var/lib/apt/lists/* || true)
-ENV VERSION=3.6.15
+ENV VERSION=3.7.4
 ENV RELEASE=1
 
-RUN wget -q "https://www.rabbitmq.com/releases/rabbitmq-server/v${VERSION}/rabbitmq-server_${VERSION}-${RELEASE}_all.deb" -O /tmp/rabbit.deb && \
+# https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.7.4/rabbitmq-server_3.7.4-1_all.deb
+RUN wget -q "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${VERSION}/rabbitmq-server_${VERSION}-${RELEASE}_all.deb" -O /tmp/rabbit.deb && \
 apt-get update && gdebi -n /tmp/rabbit.deb && \
 apt-get clean && \
 (rm -rf /var/lib/apt/lists/* || true) && \
