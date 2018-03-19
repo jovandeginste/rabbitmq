@@ -18,7 +18,9 @@ fi
 # make rabbit own its own files
 chown -R rabbitmq:rabbitmq /var/lib/rabbitmq
 
-if [ -z "${CLUSTER_WITH}" ]; then
+SELF=$(hostname -f)
+
+if [[ -z "${CLUSTER_WITH}" -or "${CLUSTER_WITH}" == "${SELF}" ]] ; then
 	/opt/rabbitmq/sbin/rabbitmq-server
 else
 	if [ -f /config/.CLUSTERED ]; then
