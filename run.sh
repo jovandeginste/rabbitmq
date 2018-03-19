@@ -20,7 +20,7 @@ chown -R rabbitmq:rabbitmq /var/lib/rabbitmq
 
 SELF=$(hostname -f)
 
-if [[ -z "${CLUSTER_WITH}" -or "${CLUSTER_WITH}" == "${SELF}" ]] ; then
+if [[ -z ${CLUSTER_WITH} ]] || [[ ${CLUSTER_WITH} == "${SELF}" ]]; then
 	/opt/rabbitmq/sbin/rabbitmq-server
 else
 	if [ -f /config/.CLUSTERED ]; then
