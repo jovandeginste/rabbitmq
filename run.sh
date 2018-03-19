@@ -29,6 +29,9 @@ else
 	else
 		/opt/rabbitmq/sbin/rabbitmq-server &
 
+		echo "Wait for the (local) server to start."
+		sleep 10
+
 		echo -n "Trying to resolve '${CLUSTER_WITH}' (max. ${DNS_DELAY} seconds.) "
 		for i in {1..${DNS_DELAY}}; do
 			echo -n "."
